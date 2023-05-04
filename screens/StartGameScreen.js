@@ -14,7 +14,7 @@ function StartGameScreen({onPickNumber}) {
     function resetHandler() {
         setEnteredNumber('');
     }
-
+    
     function confirmInputHandler() {
         const choosenNumber = parseInt(enteredNumber);
 
