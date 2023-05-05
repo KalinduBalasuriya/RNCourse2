@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, Alert, } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Alert, SafeAreaView, } from 'react-native';
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
@@ -19,7 +19,7 @@ function generateRandomBetween(min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-function GameScreen({ userNumber }) {
+function GameScreen({ userNumber, onGameOver }) {
     const initialGuess = generateRandomBetween(minBoundary, maxBoundary, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
@@ -41,10 +41,17 @@ function GameScreen({ userNumber }) {
 
         newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNum);
-        console.log(minBoundary , maxBoundary);
+        console.log(minBoundary, maxBoundary);
     }
 
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            onGameOver();
+        }
+    }, [currentGuess, userNumber, onGameOver])
+
     return (
+        
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
@@ -57,6 +64,7 @@ function GameScreen({ userNumber }) {
             </View>
             {/* <View>LOG ROUNDS</View> */}
         </View>
+        
     );
 }
 export default GameScreen;
@@ -64,7 +72,8 @@ export default GameScreen;
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        padding: 24,
+        paddingTop: 36,
+        paddingHorizontal:25
 
     },
 })
