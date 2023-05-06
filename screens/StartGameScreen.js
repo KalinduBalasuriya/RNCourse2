@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     numberInput: {
-        fontFamily:'OpenSans-bold',
+        // fontFamily:'OpenSans-bold',
         height: 50,
         width: 50,
         textAlign: 'center',
