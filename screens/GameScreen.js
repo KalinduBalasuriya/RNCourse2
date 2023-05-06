@@ -20,8 +20,16 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
-    const initialGuess = generateRandomBetween(minBoundary, maxBoundary, userNumber)
+    const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    console.log('initialGuess - '+initialGuess);
+    console.log('currentGuess - '+currentGuess);
+    
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+            onGameOver();
+        }
+    }, [currentGuess, userNumber, onGameOver])
 
     function nextGuessHandler(direction) {
 
@@ -42,16 +50,14 @@ function GameScreen({ userNumber, onGameOver }) {
         newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNum);
         console.log(minBoundary, maxBoundary);
+        console.log('new random - '+newRndNum);
+        console.log('initialGuess at last is '+initialGuess);
+        console.log('currentGuess at last is '+currentGuess);
     }
 
-    useEffect(() => {
-        if (currentGuess === userNumber) {
-            onGameOver();
-        }
-    }, [currentGuess, userNumber, onGameOver])
 
     return (
-        
+
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
@@ -64,7 +70,7 @@ function GameScreen({ userNumber, onGameOver }) {
             </View>
             {/* <View>LOG ROUNDS</View> */}
         </View>
-        
+
     );
 }
 export default GameScreen;
@@ -73,7 +79,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         paddingTop: 36,
-        paddingHorizontal:25
+        paddingHorizontal: 25
 
     },
 })

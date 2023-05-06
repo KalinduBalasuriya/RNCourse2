@@ -38,7 +38,7 @@ export default function App() {
         imageStyle={styles.backgroundImage}
       >
         {/* <SafeAreaView style={styles.rootScreen}> */}
-          {screen}
+        {screen}
         {/* </SafeAreaView> */}
       </ImageBackground>
     </LinearGradient>
