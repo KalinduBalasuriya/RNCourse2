@@ -5,6 +5,8 @@ import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Card from '../components/Card';
 import InstructionText from '../components/InstructionText';
+import { Ionicons } from '@expo/vector-icons'
+import Colors from '../constants/colors';
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -64,14 +66,18 @@ function GameScreen({ userNumber, onGameOver }) {
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card>
-                <InstructionText>Higher or lower?</InstructionText>
+                <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
                 <View style={styles.buttonsContainer}>
 
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'lower')}>
+                            <Ionicons name="remove-circle" size={24} color="#ddb52f" />
+                        </PrimaryButton>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'greater')}>
+                            <Ionicons name="add-circle" size={24} color="#ddb52f" />
+                        </PrimaryButton>
                     </View>
 
                 </View>
@@ -89,6 +95,9 @@ const styles = StyleSheet.create({
         paddingTop: 36,
         paddingHorizontal: 25,
     },
+    instructionText: {
+        marginBottom: 12,
+    },
 
     buttonsContainer: {
         flexDirection: 'row',
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
     }
-    });
+});
 
 
 
