@@ -19,6 +19,7 @@ const styles =StyleSheet.create({
         borderWidth:2,
         padding:12,
         borderColor:Colors.accent500,
+        
     }
 });
     

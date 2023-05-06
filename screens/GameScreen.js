@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Alert, SafeAreaView, } from 'react-native';
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import Card from '../components/Card';
+import InstructionText from '../components/InstructionText';
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -22,9 +24,9 @@ let maxBoundary = 100;
 function GameScreen({ userNumber, onGameOver }) {
     const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
-    console.log('initialGuess - '+initialGuess);
-    console.log('currentGuess - '+currentGuess);
-    
+    console.log('initialGuess - ' + initialGuess);
+    console.log('currentGuess - ' + currentGuess);
+
     useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver();
@@ -50,9 +52,9 @@ function GameScreen({ userNumber, onGameOver }) {
         newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNum);
         console.log(minBoundary, maxBoundary);
-        console.log('new random - '+newRndNum);
-        console.log('initialGuess at last is '+initialGuess);
-        console.log('currentGuess at last is '+currentGuess);
+        console.log('new random - ' + newRndNum);
+        console.log('initialGuess at last is ' + initialGuess);
+        console.log('currentGuess at last is ' + currentGuess);
     }
 
 
@@ -61,13 +63,19 @@ function GameScreen({ userNumber, onGameOver }) {
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
-            <View>
-                <Text>Higher or lower?</Text>
-                <View>
-                    <PrimaryButton onTap={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
-                    <PrimaryButton onTap={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+            <Card>
+                <InstructionText>Higher or lower?</InstructionText>
+                <View style={styles.buttonsContainer}>
+
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onTap={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+                    </View>
+
                 </View>
-            </View>
+            </Card>
             {/* <View>LOG ROUNDS</View> */}
         </View>
 
@@ -79,10 +87,16 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         paddingTop: 36,
-        paddingHorizontal: 25
-
+        paddingHorizontal: 25,
     },
-})
+
+    buttonsContainer: {
+        flexDirection: 'row',
+    },
+    buttonContainer: {
+        flex: 1,
+    }
+    });
 
 
 
