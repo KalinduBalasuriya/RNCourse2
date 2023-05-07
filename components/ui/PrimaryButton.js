@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 
     },
     buttonText: {
+        fontFamily:'open-sans-bold',
         color: 'white',
         textAlign: 'center'
     },

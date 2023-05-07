@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, SafeAreaView, } from 'react-native';
+import { View, Text, StyleSheet, Alert, SafeAreaView, FlatList, } from 'react-native';
 import Title from '../components/ui/Title';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
@@ -23,15 +23,18 @@ function generateRandomBetween(min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-function GameScreen({ userNumber, onGameOver }) {
+function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
     const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [guessRounds, setGuessRounds]   = useState([initialGuess]);
+
     console.log('initialGuess - ' + initialGuess);
     console.log('currentGuess - ' + currentGuess);
 
     useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver();
+            passGuessRounds(guessRounds);
         }
     }, [currentGuess, userNumber, onGameOver])
 
@@ -53,6 +56,8 @@ function GameScreen({ userNumber, onGameOver }) {
 
         newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNum);
+        setGuessRounds((prevGuessRounds)=>[...prevGuessRounds, newRndNum]);
+
         console.log(minBoundary, maxBoundary);
         console.log('new random - ' + newRndNum);
         console.log('initialGuess at last is ' + initialGuess);
@@ -82,6 +87,11 @@ function GameScreen({ userNumber, onGameOver }) {
 
                 </View>
             </Card>
+            <View>
+                <FlatList data={guessRounds} renderItem={(itemData)=><Text>{itemData.item}</Text>}
+                keyExtractor={(item)=>item}
+                />
+            </View>
             {/* <View>LOG ROUNDS</View> */}
         </View>
 
@@ -96,6 +106,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
     },
     instructionText: {
+        fontFamily:'open-sans',
         marginBottom: 12,
     },
 
