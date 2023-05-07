@@ -12,8 +12,8 @@ export default function App() {
 
   const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
-  const [roundsCount , setRoundsCount] = useState();
-  const [newGame, setNewGame] = useState(false);
+  const [guessRounds , setGuessRounds] = useState();
+  // const [newGame, setNewGame] = useState(false);
 
   const [fontsLoaded]=useFonts({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -29,14 +29,15 @@ export default function App() {
     setGameIsOver(false);
   }
   function roundsHandler(rounds){
-    const count = setRoundsCount(rounds.length)
+    setGuessRounds(rounds.length)
   }
 
   function gameOverHandler() {
     setGameIsOver(true);
   }
-  function newGameHandler() {
-    setNewGame(true);
+  function StartNewGameHandler() {
+    setUserNumber(null);
+    setGuessRounds(0);
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
@@ -46,11 +47,11 @@ export default function App() {
     screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} passGuessRounds={roundsHandler} />
   }
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen userNumber={userNumber} guessRounds={roundsCount} navigate={newGameHandler}/>
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRounds} onStartNewGame={StartNewGameHandler}/>
   }
-  if (newGame && gameIsOver) {
-    screen = <StartGameScreen/>
-  }
+  // if (newGame && gameIsOver) {
+  //   screen = <StartGameScreen/>
+  // }
   
   return (
     <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>

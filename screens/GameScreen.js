@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import InstructionText from '../components/InstructionText';
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '../constants/colors';
+import GuessLogItem from '../components/game/GuessLogItem';
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -26,7 +27,7 @@ let maxBoundary = 100;
 function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
     const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess);
-    const [guessRounds, setGuessRounds]   = useState([initialGuess]);
+    const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
     console.log('initialGuess - ' + initialGuess);
     console.log('currentGuess - ' + currentGuess);
@@ -36,7 +37,12 @@ function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
             onGameOver();
             passGuessRounds(guessRounds);
         }
-    }, [currentGuess, userNumber, onGameOver])
+    }, [currentGuess, userNumber, onGameOver]);
+
+    useEffect(() => {
+        minBoundary=1;
+        maxBoundary=100;
+     }, []);
 
     function nextGuessHandler(direction) {
 
@@ -56,7 +62,7 @@ function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
 
         newRndNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRndNum);
-        setGuessRounds((prevGuessRounds)=>[...prevGuessRounds, newRndNum]);
+        setGuessRounds((prevGuessRounds) => [...prevGuessRounds, newRndNum]);
 
         console.log(minBoundary, maxBoundary);
         console.log('new random - ' + newRndNum);
@@ -64,6 +70,7 @@ function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
         console.log('currentGuess at last is ' + currentGuess);
     }
 
+    const guessRoundsListLength = guessRounds.length;
 
     return (
 
@@ -87,9 +94,16 @@ function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
 
                 </View>
             </Card>
-            <View>
-                <FlatList data={guessRounds} renderItem={(itemData)=><Text>{itemData.item}</Text>}
-                keyExtractor={(item)=>item}
+            <View style={styles.lisrContainer}>
+                <FlatList
+                    data={guessRounds}
+                    renderItem={(itemData) => (
+                        <GuessLogItem
+                            roundNumber={guessRoundsListLength - itemData.index}
+                            guess={itemData.item}
+                        />
+                    )}
+                    keyExtractor={(item) => item}
                 />
             </View>
             {/* <View>LOG ROUNDS</View> */}
@@ -106,7 +120,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
     },
     instructionText: {
-        fontFamily:'open-sans',
+        fontFamily: 'open-sans',
         marginBottom: 12,
     },
 
@@ -115,7 +129,11 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flex: 1,
-    }
+    },
+    lisrContainer:{
+      flex:1,
+      padding:16,
+    },
 });
 
 
