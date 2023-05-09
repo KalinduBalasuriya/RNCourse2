@@ -20,6 +20,9 @@ const styles =StyleSheet.create({
         borderWidth:2,
         padding:12,
         borderColor:Colors.accent500,
+        maxWidth:'80%',
+        Width:300
+
         
     }
 });

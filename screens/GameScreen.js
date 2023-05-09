@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 36,
         paddingHorizontal: 25,
+        alignItems:'center'
     },
     instructionText: {
         fontFamily: 'open-sans',
