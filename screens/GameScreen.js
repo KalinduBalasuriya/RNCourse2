@@ -32,12 +32,15 @@ function GameScreen({ userNumber, onGameOver, passGuessRounds }) {
     console.log('initialGuess - ' + initialGuess);
     console.log('currentGuess - ' + currentGuess);
 
-    useEffect(() => {
-        if (currentGuess === userNumber) {
-            onGameOver();
-            passGuessRounds(guessRounds);
-        }
-    }, [currentGuess, userNumber, onGameOver]);
+    
+        console.log("checked");
+        useEffect(() => {
+            if (currentGuess === userNumber) {
+                onGameOver();
+                passGuessRounds(guessRounds);
+            }
+        }, [currentGuess, userNumber, onGameOver]);
+ 
 
     useEffect(() => {
         minBoundary=1;

@@ -67,7 +67,7 @@ function StartGameScreen({ onPickNumber }) {
 
 export default StartGameScreen;
 
-const deviceHeight = Dimensions.get('window').height;
+
 
 const styles = StyleSheet.create({
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 
     rootContainer: {
         flex: 1,
-        marginTop: deviceHeight < 380 ? 30 : 100,
+        marginTop: 100,
         alignItems: "center",
     },
     numberInput: {

@@ -9,25 +9,25 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame, }) {
 
     const { width, height } = useWindowDimensions();
 
-    if (width < 380) {
-        imageSize = 150;
-    }
+    // if (width < 380) {
+    //     imageSize = 150;
+    // }
 
-    if (height < 400) {
-        imageSize = 80;
-    }
+    // if (height < 400) {
+    //     imageSize = 80;
+    // }
 
-    const imageStyle = {
-        width: imageSize,
-        width: imageSize,
-        borderRadius: imageSize / 2
-    }
+    // const imageStyle = {
+    //     width: imageSize,
+    //     width: imageSize,
+    //     borderRadius: imageSize / 2
+    // }
 
     return (
         <ScrollView style={styles.screen}>
             <View style={styles.rootContainer}>
                 <Title style={styles.title}>GAME OVER</Title>
-                <View style={[styles.imageContainer, imageStyle]}>
+                <View style={[styles.imageContainer, ]}>
                     <Image style={styles.image} source={require('../assets/success.png')} />
                 </View>
                 <Text style={styles.summaryText}>
